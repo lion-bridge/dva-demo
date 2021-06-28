@@ -1,26 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import dva, { connect } from 'dva';
+import Counter1 from './counter';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+const Counter = (props = {}) => {
+    const {count = 0, dispatch} = props;
+    // console.log('count1=',count)
+    return <div>
+        <p>{count}</p>
+        <button onClick={() => dispatch({type: 'count/add'})}>加</button>
+        <br/>
+        <button onClick={() => dispatch({type: 'count/minus'})}>减</button>
+        <br/>
+
+        <Counter1 />
+    </div>;
 }
-
-export default App;
+const mapStateToProps = (state = {}) => {
+    return state;
+}
+export default connect(mapStateToProps)(Counter);
